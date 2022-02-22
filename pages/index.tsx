@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import Layout from '../components/layout';
 import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import CovidChart from '../components/covid-chart';
 
 const MotionText = motion(Text);
 
@@ -31,7 +32,7 @@ const LinkCard = ({ title, body, href }: { title: string, body: string, href: st
       cursor="pointer"
       _hover={{
         borderColor: 'blue.500',
-        backgroundColor: 'blue.100',
+        backgroundColor: 'blue.600',
       }}
       onClick={() => window.open(href, '_blank')}
     >
@@ -42,30 +43,19 @@ const LinkCard = ({ title, body, href }: { title: string, body: string, href: st
 };
 
 const Home: NextPage = () => {
-  const [covidCaseNumbers, setCovidCaseNumbers] = useState<Record<string, number>>({});
-  const [covidStats, setCovidStats] = useState<Array<{ date: string, count: number }>>([]);
-  useEffect(() => {
-    fetch('https://covid-sg.deno.dev/all/total')
-      .then(res => res.json())
-      .then(data => setCovidCaseNumbers(data));
-  }, []);
-  useEffect(() => {
-    const stats = [];
-    for (const date in covidCaseNumbers) {
-      stats.push({
-        date,
-        count: covidCaseNumbers[date],
-      });
-    }
-    setCovidStats(stats);
-  }, [covidCaseNumbers]);
-
   const [greeting, setGreeting] = useState(getCurrentGreeting());
   setInterval(() => {
     setGreeting(getCurrentGreeting);
   }, 1000);
   return (
     <Layout>
+      <CovidChart
+        style={{
+          position: 'fixed',
+          top: 60,
+          right: 60,
+        }}
+      />
       <MotionText
         fontSize='6xl'
         margin={0}
