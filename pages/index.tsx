@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Layout from '../components/layout';
-import { Box, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import CovidChart from '../components/covid-chart';
 
@@ -49,15 +49,26 @@ const Home: NextPage = () => {
   }, 1000);
   return (
     <Layout>
-      <CovidChart
+      <Flex direction="column" alignItems="center"
         style={{
           position: 'fixed',
-          top: 60,
-          right: 60,
-        }}
-      />
+          top: 40,
+          right: 40,
+        }}>
+        <Text fontSize="md">SGコロナウイルス感染者数</Text>
+        <CovidChart />
+      </Flex>
+      {/* <Flex direction="column" alignItems="center"
+        style={{
+          position: 'fixed',
+          bottom: 40,
+          right: 40,
+        }}>
+        <iframe width="600" height="400" src="https://data.gov.sg/dataset/covid-19-case-numbers/resource/6c14814b-09b7-408e-80c4-db3d393c7c15/view/f2df5f18-cbcf-4eea-b15e-f80661980b0f" frameBorder="0" />
+      </Flex> */}
       <MotionText
-        fontSize='6xl'
+        fontSize="6xl"
+        fontWeight="bold"
         margin={0}
         alignSelf="center"
         marginBottom="4rem"
