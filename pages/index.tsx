@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { NextPage } from 'next';
 import Layout from '../components/layout';
 import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
@@ -6,6 +6,8 @@ import { motion } from 'framer-motion';
 import CovidChart from '../components/covid-chart';
 
 const MotionText = motion(Text);
+
+const MotionFlex = motion(Flex);
 
 const getCurrentGreeting = () => {
   const currentHour = new Date().getHours();
@@ -43,13 +45,15 @@ const LinkCard = ({ title, body, href }: { title: string, body: string, href: st
 };
 
 const Home: NextPage = () => {
+  const layoutRef = useRef(null);
   const [greeting, setGreeting] = useState(getCurrentGreeting());
   setInterval(() => {
     setGreeting(getCurrentGreeting);
   }, 1000);
   return (
-    <Layout>
-      <Flex direction="column" alignItems="center"
+    <Layout ref={layoutRef}>
+      <MotionFlex direction="column" alignItems="center"
+        drag dragConstraints={layoutRef} whileDrag={{ scale: 1.05 }}
         style={{
           position: 'fixed',
           top: 40,
@@ -57,7 +61,7 @@ const Home: NextPage = () => {
         }}>
         <Text fontSize="md">SGコロナウイルス感染者数</Text>
         <CovidChart />
-      </Flex>
+      </MotionFlex>
       {/* <Flex direction="column" alignItems="center"
         style={{
           position: 'fixed',
