@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import type { NextPage } from 'next';
-import Layout from '../components/layout';
+import Layout from '@/components/layout';
 import { Box, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import CovidChart from '../components/covid-chart';
+import CovidChart from '@/components/covid-chart';
 
 const MotionText = motion(Text);
 
